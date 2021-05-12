@@ -3,7 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-import pandas
+import pandas as pd
 import time
 
 # Opciones de navegación
@@ -418,7 +418,7 @@ for actualizacion in actualizaciones:
     list_actualizacion.append(actualizacion.text)
 driver.quit()
 #Guardado de datos
-df = pandas.DataFrame({'Distritos':list_distritos, 'Malls':list_malls, 'Direccion':list_directions, 'Limite':list_limits, 'Porcentaje actual':list_porcentaje_actual, 'Aforo actual':list_aforo_actual, 'Aforo total':list_aforo_total, 'Actualizacion':list_actualizacion})
+df = pd.DataFrame({'Distritos':list_distritos, 'Malls':list_malls, 'Direccion':list_directions, 'Limite':list_limits, 'Porcentaje actual':list_porcentaje_actual, 'Aforo actual':list_aforo_actual, 'Aforo total':list_aforo_total, 'Actualizacion':list_actualizacion})
 print(df)
 
 df.to_csv('data.csv', index=False, encoding='utf-8')
