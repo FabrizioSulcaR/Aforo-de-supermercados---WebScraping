@@ -354,7 +354,7 @@ WebDriverWait(driver, 5)\
 
 time.sleep(20)
 #Distritos
-distritos = driver.find_elements_by_xpath("//div[@class = 'col-sm-12 cuadro-region no-gutters']")
+distritos = driver.find_elements_by_xpath("//div[@class = 'col-sm-12 cuadro-region no-gutters' or @class='col-sm-12 cuadro-region-rojo no-gutters']")
 time.sleep(2)
 
 list_distritos = []
@@ -362,7 +362,7 @@ for distrito in distritos:
     list_distritos.append(distrito.text)
 
 #Malls
-malls = driver.find_elements_by_xpath("//div[@class = 'col-sm-12 cuadro-nombrecc']")
+malls = driver.find_elements_by_xpath("//div[@class = 'col-sm-12 cuadro-nombrecc' or @class='col-sm-12 cuadro-nombrecc-rojo']")
 time.sleep(2)
 
 list_malls = []
@@ -370,7 +370,7 @@ for mall in malls:
     list_malls.append(mall.text)
 
 #Dirección
-direccion = driver.find_elements_by_xpath("//div[@class='col-sm-12 cuadro-direccion']")
+direccion = driver.find_elements_by_xpath("//div[@class='col-sm-12 cuadro-direccion' or @class='col-sm-12 cuadro-direccion-rojo']")
 time.sleep(2)
 
 list_directions = []
@@ -378,7 +378,7 @@ for direction in direccion:
     list_directions.append(direction.text)
 
 #Porcentaje limite
-porcentaje_limite = driver.find_elements_by_xpath('//h3[@class="texto-datos-verde2"]')
+porcentaje_limite = driver.find_elements_by_xpath('//h3[@class="texto-datos-verde2" or @class="texto-datos-rojo2"]')
 time.sleep(2)
 
 list_limits = []
@@ -399,7 +399,7 @@ time.sleep(2)
 
 list_aforo_actual = []
 for aforo_actual in aforos_actuales:
-    list_aforo_actual.append(aforo_actual.text)
+    list_aforo_actual.append(((aforo_actual).text).replace(" personas aforo actual"," "))
 
 #Aforo total
 aforos_totales = driver.find_elements_by_xpath('//h3[@class="texto-datosn2"]')
@@ -419,6 +419,7 @@ for actualizacion in actualizaciones:
 driver.quit()
 #Guardado de datos
 df = pd.DataFrame({'Distritos':list_distritos, 'Malls':list_malls, 'Direccion':list_directions, 'Limite':list_limits, 'Porcentaje actual':list_porcentaje_actual, 'Aforo actual':list_aforo_actual, 'Aforo total':list_aforo_total, 'Actualizacion':list_actualizacion})
+
 print(df)
 
 df.to_csv('data.csv', index=False, encoding='utf-8')
