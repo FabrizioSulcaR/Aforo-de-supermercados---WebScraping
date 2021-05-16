@@ -9,7 +9,7 @@ from selenium.webdriver.common.by import By
 import undetected_chromedriver as uc
 
 # Opciones de navegacion
-driver = uc.Chrome()
+driver = uc.Chrome(chromedriver.exe)
 
 #Inicializamos el chrome
 driver.get('https://visitaresponsable.produce.gob.pe/')
