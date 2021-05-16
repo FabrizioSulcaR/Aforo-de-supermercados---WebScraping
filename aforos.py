@@ -378,7 +378,7 @@ class datos():
 
     #Aforo actual
     aforos_actuales = driver.find_elements_by_xpath('//p[@class="texto-aforoactual"]')
-    list_aforo_actual = [aforo_actual.text for aforo_actual in aforos_actuales]
+    list_aforo_actual = [aforo_actual.text.replace("personas","").replace("aforo actual","") for aforo_actual in aforos_actuales]
 
     #Aforo total
     aforos_totales = driver.find_elements_by_xpath('//h3[@class="texto-datosn2"]')
