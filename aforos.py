@@ -1,19 +1,15 @@
 # Librerias
+import time
+import pandas as pd
+
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-import pandas as pd
-import time
+import undetected_chromedriver as uc
 
-# Opciones de navegación
-options = webdriver.ChromeOptions()
-options.add_argument('--start-maximized')
-options.add_argument('--disable-extensions')
-
-driver_path = 'C:\\Users\\Usuario\\Desktop\\Scrapping\\Practice\\chromedriver.exe'
-
-driver = webdriver.Chrome(driver_path, chrome_options=options)
+# Opciones de navegacion
+driver = uc.Chrome()
 
 #Inicializamos el chrome
 driver.get('https://visitaresponsable.produce.gob.pe/')
@@ -39,7 +35,7 @@ WebDriverWait(driver, 5)\
                                       "/html/body/app-root[1]/app-home/div[3]/div/div/ng-select/ng-dropdown-panel/div/div[2]/div[2]")))\
     .click()
 
-#Seleccionar Breña
+#Seleccionar Brena
 WebDriverWait(driver, 10)\
     .until(EC.element_to_be_clickable((By.XPATH,
                                       '/html/body/app-root[1]/app-home/div[3]/div/div/ng-select/div/div/div[4]/input')))\
@@ -59,8 +55,8 @@ WebDriverWait(driver, 5)\
                                       "/html/body/app-root[1]/app-home/div[3]/div/div/ng-select/ng-dropdown-panel/div/div[2]/div[4]")))\
     .click()
 
-### Notamos que el último div[i] es el # de entrada en el filtrador
-### Notamos que el último div[i] e el # de opción en el select -> cambia esto y cambias local
+### Notamos que el ultimo div[i] es el # de entrada en el filtrador
+### Notamos que el ultimo div[i] e el # de opcion en el select -> cambia esto y cambias local
 
 #Seleccionar Callao
 WebDriverWait(driver, 10)\
@@ -72,7 +68,7 @@ WebDriverWait(driver, 5)\
                                       "/html/body/app-root[1]/app-home/div[3]/div/div/ng-select/ng-dropdown-panel/div/div[2]/div[5]")))\
     .click()
 
-#Seleccionar Callería
+#Seleccionar Calleria
 WebDriverWait(driver, 10)\
     .until(EC.element_to_be_clickable((By.XPATH,
                                       '/html/body/app-root[1]/app-home/div[3]/div/div/ng-select/div/div/div[7]/input')))\
@@ -172,7 +168,7 @@ WebDriverWait(driver, 5)\
                                       "/html/body/app-root[1]/app-home/div[3]/div/div/ng-select/ng-dropdown-panel/div/div[2]/div[15]")))\
     .click()
 
-#Seleccionar Huánuco
+#Seleccionar Huanuco
 WebDriverWait(driver, 10)\
     .until(EC.element_to_be_clickable((By.XPATH,
                                       '/html/body/app-root[1]/app-home/div[3]/div/div/ng-select/div/div/div[17]/input')))\
@@ -202,7 +198,7 @@ WebDriverWait(driver, 5)\
                                       "/html/body/app-root[1]/app-home/div[3]/div/div/ng-select/ng-dropdown-panel/div/div[2]/div[18]")))\
     .click()
 
-#Seleccionar Jesús María
+#Seleccionar Jesus Maria
 WebDriverWait(driver, 10)\
     .until(EC.element_to_be_clickable((By.XPATH,
                                       '/html/body/app-root[1]/app-home/div[3]/div/div/ng-select/div/div/div[20]/input')))\
@@ -366,7 +362,7 @@ class datos():
     
     list_malls = [mall.text for mall in malls]
 
-    #Dirección
+    #Direccion
     direccion = driver.find_elements_by_xpath("//div[@class='col-sm-12 cuadro-direccion' or @class='col-sm-12 cuadro-direccion-rojo']")
     
     list_directions = [direction.text for direction in direccion]
@@ -398,4 +394,6 @@ class datos():
 
     print(df)
 
-    df.to_csv('data.csv', index=False, encoding='utf-8')
+    date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
+
+    df.to_csv('data\data_date_time_.csv', index=False, encoding='utf-8')
