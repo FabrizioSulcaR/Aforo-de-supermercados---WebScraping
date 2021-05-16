@@ -9,7 +9,7 @@ from selenium.webdriver.common.by import By
 import undetected_chromedriver as uc
 
 # Opciones de navegacion
-driver = uc.Chrome(chromedriver.exe)
+driver = uc.Chrome()
 
 #Inicializamos el chrome
 driver.get('https://visitaresponsable.produce.gob.pe/')
@@ -397,3 +397,4 @@ class datos():
     date_time = now.strftime("%m_%d_%Y,%H.%M.%S")
 
     df.to_csv('data\data_date_time_.csv', index=False, encoding='utf-8')
+
