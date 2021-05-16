@@ -7,6 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import undetected_chromedriver as uc
+from datetime import datetime
 
 # Opciones de navegacion
 driver = uc.Chrome()
@@ -351,7 +352,6 @@ WebDriverWait(driver, 5)\
 time.sleep(20)
 
 class datos():
-
     #Distritos
     distritos = driver.find_elements_by_xpath("//div[@class = 'col-sm-12 cuadro-region no-gutters' or @class='col-sm-12 cuadro-region-rojo no-gutters']")
 
@@ -359,17 +359,17 @@ class datos():
 
     #Malls
     malls = driver.find_elements_by_xpath("//div[@class = 'col-sm-12 cuadro-nombrecc' or @class='col-sm-12 cuadro-nombrecc-rojo']")
-    
+
     list_malls = [mall.text for mall in malls]
 
     #Direccion
     direccion = driver.find_elements_by_xpath("//div[@class='col-sm-12 cuadro-direccion' or @class='col-sm-12 cuadro-direccion-rojo']")
-    
+
     list_directions = [direction.text for direction in direccion]
 
     #Porcentaje limite
     porcentaje_limite = driver.find_elements_by_xpath('//h3[@class="texto-datos-verde2" or @class="texto-datos-rojo2"]')
-    
+
     list_limits = [limit.text for limit in porcentaje_limite]
 
     #Porcentaje actual
@@ -394,7 +394,7 @@ class datos():
 
     print(df)
 
-    date_time = now.strftime("%m_%d_%Y,%H.%M.%S")
+    now = datetime.now()
+    date_time = now.strftime("%m.%d.%Y--%H.%M.%S")
 
-    df.to_csv('data\data_date_time_.csv', index=False, encoding='utf-8')
-
+    df.to_csv('data' + '\data_' + str(date_time) + '_.csv', index=False, encoding='utf-8')
