@@ -394,6 +394,6 @@ class datos():
 
     print(df)
 
-    date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
+    date_time = now.strftime("%m_%d_%Y,%H.%M.%S")
 
     df.to_csv('data\data_date_time_.csv', index=False, encoding='utf-8')
