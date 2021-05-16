@@ -353,73 +353,49 @@ WebDriverWait(driver, 5)\
     .click()
 
 time.sleep(20)
-#Distritos
-distritos = driver.find_elements_by_xpath("//div[@class = 'col-sm-12 cuadro-region no-gutters' or @class='col-sm-12 cuadro-region-rojo no-gutters']")
-time.sleep(2)
 
-list_distritos = []
-for distrito in distritos:
-    list_distritos.append(distrito.text)
+class datos():
 
-#Malls
-malls = driver.find_elements_by_xpath("//div[@class = 'col-sm-12 cuadro-nombrecc' or @class='col-sm-12 cuadro-nombrecc-rojo']")
-time.sleep(2)
+    #Distritos
+    distritos = driver.find_elements_by_xpath("//div[@class = 'col-sm-12 cuadro-region no-gutters' or @class='col-sm-12 cuadro-region-rojo no-gutters']")
 
-list_malls = []
-for mall in malls:
-    list_malls.append(mall.text)
+    list_distritos = [distrito.text for distrito in distritos]
 
-#Dirección
-direccion = driver.find_elements_by_xpath("//div[@class='col-sm-12 cuadro-direccion' or @class='col-sm-12 cuadro-direccion-rojo']")
-time.sleep(2)
+    #Malls
+    malls = driver.find_elements_by_xpath("//div[@class = 'col-sm-12 cuadro-nombrecc' or @class='col-sm-12 cuadro-nombrecc-rojo']")
+    
+    list_malls = [mall.text for mall in malls]
 
-list_directions = []
-for direction in direccion:
-    list_directions.append(direction.text)
+    #Dirección
+    direccion = driver.find_elements_by_xpath("//div[@class='col-sm-12 cuadro-direccion' or @class='col-sm-12 cuadro-direccion-rojo']")
+    
+    list_directions = [direction.text for direction in direccion]
 
-#Porcentaje limite
-porcentaje_limite = driver.find_elements_by_xpath('//h3[@class="texto-datos-verde2" or @class="texto-datos-rojo2"]')
-time.sleep(2)
+    #Porcentaje limite
+    porcentaje_limite = driver.find_elements_by_xpath('//h3[@class="texto-datos-verde2" or @class="texto-datos-rojo2"]')
+    
+    list_limits = [limit.text for limit in porcentaje_limite]
 
-list_limits = []
-for limit in porcentaje_limite:
-    list_limits.append(limit.text)
+    #Porcentaje actual
+    porcentaje_actual = driver.find_elements_by_xpath('//h3[@class="texto-datosn"]')
+    list_porcentaje_actual = [p_actual.text for p_actual in porcentaje_actual]
 
-#Porcentaje actual
-porcentaje_actual = driver.find_elements_by_xpath('//h3[@class="texto-datosn"]')
-time.sleep(2)
+    #Aforo actual
+    aforos_actuales = driver.find_elements_by_xpath('//p[@class="texto-aforoactual"]')
+    list_aforo_actual = [aforo_actual.text for aforo_actual in aforos_actuales]
 
-list_porcentaje_actual = []
-for p_actual in porcentaje_actual:
-    list_porcentaje_actual.append(p_actual.text)
+    #Aforo total
+    aforos_totales = driver.find_elements_by_xpath('//h3[@class="texto-datosn2"]')
+    list_aforo_total = [aforo_total.text for aforo_total in aforos_totales]
 
-#Aforo actual
-aforos_actuales = driver.find_elements_by_xpath('//p[@class="texto-aforoactual"]')
-time.sleep(2)
+    #Ultima Actualizacion
+    actualizaciones = driver.find_elements_by_xpath('//p[@class="texto-comentario"]/span')
+    list_actualizacion = [actualizacion.text for actualizacion in actualizaciones]
 
-list_aforo_actual = []
-for aforo_actual in aforos_actuales:
-    list_aforo_actual.append(((aforo_actual).text).replace(" personas aforo actual"," "))
+    driver.quit()
+    #Guardado de datos
+    df = pd.DataFrame({'Distritos':list_distritos, 'Malls':list_malls, 'Direccion':list_directions, 'Limite':list_limits, 'Porcentaje actual':list_porcentaje_actual, 'Aforo actual':list_aforo_actual, 'Aforo total':list_aforo_total, 'Actualizacion':list_actualizacion})
 
-#Aforo total
-aforos_totales = driver.find_elements_by_xpath('//h3[@class="texto-datosn2"]')
-time.sleep(2)
+    print(df)
 
-list_aforo_total = []
-for aforo_total in aforos_totales:
-    list_aforo_total.append(aforo_total.text)
-
-#Ultima Actualizacion
-actualizaciones = driver.find_elements_by_xpath('//p[@class="texto-comentario"]/span')
-time.sleep(2)
-
-list_actualizacion = []
-for actualizacion in actualizaciones:
-    list_actualizacion.append(actualizacion.text)
-driver.quit()
-#Guardado de datos
-df = pd.DataFrame({'Distritos':list_distritos, 'Malls':list_malls, 'Direccion':list_directions, 'Limite':list_limits, 'Porcentaje actual':list_porcentaje_actual, 'Aforo actual':list_aforo_actual, 'Aforo total':list_aforo_total, 'Actualizacion':list_actualizacion})
-
-print(df)
-
-df.to_csv('data.csv', index=False, encoding='utf-8')
+    df.to_csv('data.csv', index=False, encoding='utf-8')
